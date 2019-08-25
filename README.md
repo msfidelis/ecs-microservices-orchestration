@@ -1,95 +1,81 @@
-# ECS Simple Pipeline - Easy way to deploy Containers on AWS
-Create environment and deployment pipelines using ECS, ECR, CodePipeline and Git with Terraform
+# Complete Microservices Deploy and Orchestration on Amazon ECS using Terraform
+
+Create clusters and services and pipelines on AWS using Terraform.
+
+AWS Stack Implementation:
+
+* VPC
+* ECS Fargate
+* Codepipeline
+* Codebuild
+* Application Load Balancer
+* AWS Appmesh
+
 
 ## Architecture 
 
-![Arch](.github/images/ECS-Arquitetura.png)
+<!-- ![Arch](.github/images/ECS-Arquitetura.png) -->
 
 ## Deploy Pipeline
 
-![Steps](.github/images/pipeline-demo.png)
+<!-- ![Steps](.github/images/pipeline-demo.png) -->
 
 # How to Deploy
 
-## Edit your preferences
+## Edit AWS Configurations
 
-Edit `variables.tf` file to customize application preferences like Github account, repo and owner, Load Balancer ports and cluster preferences. 
+Edit `main.tf`
 
 ```hcl
-# Customize the Cluster Name
-variable "cluster_name" {
-  description = "ECS Cluster Name"
-  default     = "web-app"
+# Customize your AWS Region
+variable "aws_region" {
+  description = "AWS Region for the VPC"
+  default     = "us-east-1"
 }
 
-# Customize your ECR Registry Name
-variable "app_repository_name" {
-  description = "ECR Repository Name"
-  default     = "web-app"
+provider "aws" {
+  region = "${var.aws_region}"
 }
 
-###### APPLICATION OPTIONS  ######
-variable "container_name" {
-  description = "Container app name"
-  default     = "micro-api"
+data "aws_caller_identity" "current" {}
+```
+
+## Create a cluster
+
+Edit `clusters.tf` file to customize a cluster preferences. Give infos like ALB basic configurations, AZ's and etc.
+
+```hcl
+module "cluster_example" {
+
+    source              = "./modules/ecs"
+    vpc_id              = "${module.vpc.vpc_id}"
+    cluster_name        = "${var.cluster_name}"
+
+    listener = {
+        port     = 8080
+        protocol = "HTTP"
+        certificate_arn = ""
+        ssl_policy      = "" // Default "ELBSecurityPolicy-TLS-1-1-2017-01"
+    }
+
+    availability_zones  = [
+        "${module.vpc.public_subnet_1a}",
+        "${module.vpc.public_subnet_1b}"
+    ]
+
 }
 ```
 
-Edit the Github preferences in the same file to specify infos like repo, owner or organization, branches e etc. 
-
 ```hcl
-# Github Repository Owner
-variable "git_repository_owner" {
-  description = "Github Repository Owner"
-  default     = "msfidelis"
-}
-
-# Github Repository Project Name
-variable "git_repository_name" {
-  description = "Project name on Github"
-  default     = "micro-api"
-}
-
-# Default Branch
-variable "git_repository_branch" {
-  description = "Github Project Branch"
-  default     = "master"
-}
 ```
 
-## Edit Auto Scaling Metrics
+## Create an Service
+
+Edit `services.tf` and customize an service configurations, like Github sources, containers preferences, alb route path and auto scale preferences.
 
 ```hcl
-# Number of containers
-variable "desired_tasks" {
-  description = "Number of containers desired to run app task"
-  default     = 2
-}
 
-variable "min_tasks" {
-  description = "Minimum"
-  default     = 2
-}
-
-variable "max_tasks" {
-  description = "Maximum"
-  default     = 4
-}
-
-variable "cpu_to_scale_up" {
-  description = "CPU % to Scale Up the number of containers"
-  default     = 80
-}
-
-variable "cpu_to_scale_down" {
-  description = "CPU % to Scale Down the number of containers"
-  default     = 30
-}
 ```
-
-## Edit your Build steps
-
-This demo build, dockerize and deploy a simple Node.JS application. Customize your build steps on `modules/pipeline/templates/buildspec.yml` file. 
 
 
 ## How to Deploy
