@@ -28,6 +28,8 @@ variable "cpu_to_scale_up" {}
 
 variable "cpu_to_scale_down" {}
 
+variable "cpu_verification_period" {}
+
 variable "build_image" {}
 
 variable "is_public" {}
