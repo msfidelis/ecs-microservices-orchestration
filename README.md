@@ -93,11 +93,20 @@ module "service_whois" {
     service_name        = "service-whois"
     service_base_path   = "/whois*"
     service_priority    = 400
+    container_port      = 8080
 
-    container_port  = 8080
+    service_healthcheck = {
+        healthy_threshold   = 3
+        unhealthy_threshold = 10
+        timeout             = 10
+        interval            = 60
+        matcher             = "200"
+        path                = "/healthcheck"
+        port                = 8080
+    }
 
     # Cluster to deploy your service - see in clusters.tf
-    cluster_name    = "${var.cluster_name}"
+    cluster_name        = "${var.cluster_name}"
     cluster_id          = "${module.cluster_example.cluster_id}"
     cluster_listener    = "${module.cluster_example.listener}"
 
