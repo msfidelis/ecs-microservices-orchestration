@@ -22,5 +22,7 @@ resource "aws_ecs_service" "service" {
     ignore_changes = ["desired_count"]
   }
 
+  platform_version  = "${var.platform_version}"
+
   depends_on = ["aws_lb_listener_rule.service"]
 }

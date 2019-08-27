@@ -12,6 +12,14 @@ variable "service_name" {}
 
 variable "service_priority" {}
 
+variable "platform_version" {
+    default = "LATEST"
+}
+
+variable "cpu_evaluation_periods" {
+    default = 5
+}
+
 variable "service_healthcheck" {
   type        = "map"
   default = {

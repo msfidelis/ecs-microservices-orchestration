@@ -2,6 +2,8 @@ resource "aws_codepipeline" "pipeline" {
   name     = "${var.cluster_name}-${var.app_service_name}-pipeline"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
+  depends_on = ["aws_s3_bucket.source", "aws_codebuild_project.app_build"]
+
   artifact_store {
     location = "${aws_s3_bucket.source.bucket}"
     type     = "S3"

@@ -1,17 +1,18 @@
-
 resource "aws_appautoscaling_target" "app_scale_target" {
-  service_namespace  = "ecs"
-  resource_id        = "service/${var.cluster_name}/${var.service_name}"
-  scalable_dimension = "ecs:service:DesiredCount"
-  max_capacity       = "${var.max_tasks}"
-  min_capacity       = "${var.min_tasks}"
+    service_namespace  = "ecs"
+    resource_id        = "service/${var.cluster_name}/${var.service_name}"
+    scalable_dimension = "ecs:service:DesiredCount"
+    max_capacity       = "${var.max_tasks}"
+    min_capacity       = "${var.min_tasks}"
+
+    depends_on = ["aws_ecs_service.service"]
 }
 
 // Trocar aqui
 resource "aws_cloudwatch_metric_alarm" "cpu_utilization_high" {
   alarm_name          = "${var.cluster_name}-${var.service_name}-cpu-high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "1"
+  evaluation_periods  = "${var.cpu_evaluation_periods}"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
   statistic           = "Average"

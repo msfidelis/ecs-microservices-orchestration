@@ -39,6 +39,7 @@ module "service_whois" {
     cpu_to_scale_up         = 80
     cpu_to_scale_down       = 20
     cpu_verification_period = 60
+    cpu_evaluation_periods  = 1
 
     # Pipeline Configuration
     build_image         = "aws/codebuild/docker:17.09.0"

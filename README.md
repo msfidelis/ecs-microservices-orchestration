@@ -18,6 +18,10 @@ AWS Stack Implementation:
 
 ## Deploy Pipeline
 
+This demo project search for a buildspec.yml on root path from repository. [You can see an example here](https://github.com/msfidelis/microservice-nadave-whois/blob/master/buildspec.yml).
+
+
+
 <!-- ![Steps](.github/images/pipeline-demo.png) -->
 
 # How to Deploy
@@ -123,6 +127,7 @@ module "service_whois" {
     cpu_to_scale_up         = 80
     cpu_to_scale_down       = 20
     cpu_verification_period = 60
+    cpu_evaluation_periods  = 1
 
     # Pipeline Configuration
     build_image         = "aws/codebuild/docker:17.09.0"
