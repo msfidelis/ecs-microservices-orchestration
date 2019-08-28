@@ -19,7 +19,7 @@ resource "aws_ecs_service" "service" {
   }
 
   lifecycle {
-    ignore_changes = ["desired_count"]
+    ignore_changes = ["desired_count", "task_definition"]
   }
 
   platform_version  = "${var.platform_version}"
