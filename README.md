@@ -2,6 +2,8 @@
 
 Create clusters and services and pipelines on AWS using Terraform.
 
+> This is a incremental evolution from [ecs-pipeline](https://github.com/msfidelis/ecs-pipeline) for big projects with more microservices and service discovery on AWS
+
 AWS Stack Implementation:
 
 * VPC
