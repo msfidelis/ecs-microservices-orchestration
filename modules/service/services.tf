@@ -15,7 +15,8 @@ resource "aws_ecs_service" "service" {
   load_balancer {
     target_group_arn = "${aws_alb_target_group.tg.arn}"
     container_name   = "${var.service_name}"
-    container_port   = "${var.container_port}"
+    // container_port   = "${var.container_port}"
+    container_port  = 15000
   }
 
   lifecycle {

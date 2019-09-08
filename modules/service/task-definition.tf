@@ -8,6 +8,8 @@ data "template_file" "task" {
     log_group           = "${aws_cloudwatch_log_group.logs.name}"
     desired_task_cpu    = "${var.desired_task_cpu}"
     desired_task_memory = "${var.desired_task_mem}"
+    envoy_cpu           = "${var.envoy_cpu}"
+    envoy_mem           = "${var.envoy_mem}"
     region              = "${var.region}"
   }
 }
@@ -17,21 +19,21 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions    = "${data.template_file.task.rendered}"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "${var.desired_task_cpu}"
-  memory                   = "${var.desired_task_mem}"
+  cpu                      = var.desired_task_cpu + var.envoy_cpu
+  memory                   = var.desired_task_mem + var.envoy_mem
 
 
-  // proxy_configuration {
-  //   type = "APPMESH"
-  //   container_name = "envoy"
-  //   properties = {
-  //     IgnoredUID = "1337"
-  //     AppPorts = "${var.container_port}"
-  //     ProxyIngressPort  = "15000"
-  //     ProxyEgressPort   = "15001"
-  //     EgressIgnoredIPs = "169.254.170.2,169.254.169.254"
-  //   }
-  // }
+  proxy_configuration {
+    type = "APPMESH"
+    container_name = "envoy"
+    properties = {
+      IgnoredUID = "1337"
+      AppPorts = "${var.container_port}"
+      ProxyIngressPort  = "15000"
+      ProxyEgressPort   = "15001"
+      EgressIgnoredIPs = "169.254.170.2,169.254.169.254"
+    }
+  }
 
   execution_role_arn = "${aws_iam_role.ecs_execution_role.arn}"
   task_role_arn      = "${aws_iam_role.ecs_execution_role.arn}"

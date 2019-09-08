@@ -35,6 +35,14 @@ variable "service_healthcheck" {
   }
 }
 
+variable "envoy_cpu" {
+  default = 256
+}
+
+variable "envoy_mem" {
+  default = 512
+}
+
 variable "container_port" {}
 
 variable "desired_tasks" {}
