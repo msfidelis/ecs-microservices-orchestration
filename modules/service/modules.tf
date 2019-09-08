@@ -16,3 +16,12 @@ module "pipeline" {
 
   subnet_ids            = "${var.availability_zones}"
 }
+
+
+module "virtual_node" {
+  source                = "../virtual_node"
+  cluster_name          = "${var.cluster_name}"
+  mesh_name             = "${var.cluster_mesh}"
+  service_name          = "${var.service_name}"
+  service_port          = "${var.container_port}"
+}

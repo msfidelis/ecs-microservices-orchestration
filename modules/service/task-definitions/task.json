@@ -16,7 +16,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "${log_group}",
-          "awslogs-region": "us-east-1",
+          "awslogs-region": "${region}",
           "awslogs-stream-prefix": "${container_name}"
         }
       },
@@ -30,5 +30,27 @@
           "value": "${container_port}"
         }
       ]
+    },
+    {
+      "name": "envoy",
+      "image": "111345817488.dkr.ecr.${region}.amazonaws.com/aws-appmesh-envoy:v1.11.1.1-prod",
+      "essential": true,
+      "memory" : 1024,
+      "cpu" : 0.5,
+      "environment": [{
+        "name": "APPMESH_VIRTUAL_NODE_NAME",
+        "value": "mesh/meshName/virtualNode/virtualNodeName"
+      }],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -s http://localhost:9901/server_info | grep state | grep -q LIVE"
+        ],
+        "startPeriod": 10,
+        "interval": 5,
+        "timeout": 2,
+        "retries": 3
+      },
+      "user": "1337"
     }
   ]

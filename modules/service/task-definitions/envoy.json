@@ -1,0 +1,26 @@
+{
+    "type": "APPMESH",
+    "containerName": "envoy",
+    "properties": [
+        {
+            "name": "IgnoredUID",
+            "value": "1390"
+        },
+        {
+            "name": "ProxyIngressPort",
+            "value": "${container_port}"
+        },
+        {
+            "name": "ProxyEgressPort",
+            "value": "15001"
+        },
+        {
+            "name": "AppPorts",
+            "value": "${container_port}"
+        },
+        {
+            "name": "EgressIgnoredIPs",
+            "value": "169.254.170.2,169.254.169.254"
+        }
+    ]
+}

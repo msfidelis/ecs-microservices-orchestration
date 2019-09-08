@@ -8,6 +8,8 @@ variable "cluster_name" {}
 
 variable "cluster_id" {}
 
+variable "cluster_mesh" {}
+
 variable "service_name" {}
 
 variable "service_priority" {}

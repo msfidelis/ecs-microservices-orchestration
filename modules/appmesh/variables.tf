@@ -1,0 +1,1 @@
+variable "cluster_name" {}
