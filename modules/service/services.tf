@@ -12,11 +12,16 @@ resource "aws_ecs_service" "service" {
     assign_public_ip = true
   }
 
+  service_registries {
+    registry_arn = "${aws_service_discovery_service.service.arn}"
+
+    container_name = "${var.service_name}"
+  }
+
   load_balancer {
     target_group_arn = "${aws_alb_target_group.tg.arn}"
     container_name   = "${var.service_name}"
-    // container_port   = "${var.container_port}"
-    container_port  = 15000
+    container_port   = "${var.container_port}"
   }
 
   lifecycle {

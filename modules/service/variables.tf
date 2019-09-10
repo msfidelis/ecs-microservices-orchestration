@@ -6,6 +6,8 @@ variable "cluster_listener" {}
 
 variable "cluster_name" {}
 
+variable "cluster_service_discovery" {}
+
 variable "cluster_id" {}
 
 variable "cluster_mesh" {}

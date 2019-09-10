@@ -5,7 +5,7 @@ module "cluster_example" {
     cluster_name        = "${var.cluster_name}"
 
     listener = {
-        port     = 8080
+        port     = 80
         protocol = "HTTP"
         certificate_arn = ""
         ssl_policy      = "" // Default "ELBSecurityPolicy-TLS-1-1-2017-01"        
