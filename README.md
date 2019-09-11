@@ -120,6 +120,9 @@ module "service_whois" {
     cluster_name        = "${var.cluster_name}"
     cluster_id          = "${module.cluster_example.cluster_id}"
     cluster_listener    = "${module.cluster_example.listener}"
+    cluster_mesh        = "${module.cluster_example.cluster_mesh}"
+
+    cluster_service_discovery = "${module.cluster_example.cluster_service_discovery}"
 
     # Auto Scale Limits
     desired_tasks   = 2
@@ -131,7 +134,7 @@ module "service_whois" {
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
-    cpu_to_scale_up         = 80
+    cpu_to_scale_up         = 30
     cpu_to_scale_down       = 20
     cpu_verification_period = 60
     cpu_evaluation_periods  = 1
