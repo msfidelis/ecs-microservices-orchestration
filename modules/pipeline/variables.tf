@@ -37,8 +37,6 @@ variable "subnet_ids" {
 
 variable "build_image" {}
 
-variable "vpc_id" {}
-
 variable "region" {}
 
 variable "container_name" {
