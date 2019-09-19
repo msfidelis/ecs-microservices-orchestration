@@ -1,48 +1,111 @@
-{
-    "type": "APPMESH",
-    "containerName": "envoy",
-    "properties": [
+[
+    {
+      "name": "${container_name}",
+      "image": "${image}",
+      "portMappings": [
         {
-            "name": "IgnoredUID",
-            "value": "1390"
-        },
-        {
-            "name": "ProxyIngressPort",
-            "value": "${container_port}"
-        },
-        {
-            "name": "ProxyEgressPort",
-            "value": "15001"
-        },
-        {
-            "name": "AppPorts",
-            "value": "${container_port}"
-        },
-        {
-            "name": "EgressIgnoredIPs",
-            "value": "169.254.170.2,169.254.169.254"
+          "containerPort": ${container_port},
+          "hostPort": ${container_port}
         }
-    ]
-},
-{
-    "name": "envoy",
-    "image": "111345817488.dkr.ecr.${region}.amazonaws.com/aws-appmesh-envoy:v1.11.1.1-prod",
-    "essential": true,
-    "memory" : ${envoy_mem},
-    "cpu" : ${envoy_cpu},
-    "environment": [{
-      "name": "APPMESH_VIRTUAL_NODE_NAME",
-      "value": "mesh/meshName/virtualNode/virtualNodeName"
-    }],
-    "healthCheck": {
-      "command": [
-        "CMD-SHELL",
-        "curl -s http://0.0.0.0:9901/server_info | grep state | grep -q LIVE"
       ],
-      "startPeriod": 10,
-      "interval": 5,
-      "timeout": 2,
-      "retries": 3
+      "cpu": ${desired_task_cpu},
+      "memory": ${desired_task_memory},
+      "networkMode": "awsvpc",
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "${container_name}"
+        }
+      },
+      "environment": [
+        {
+          "name": "FOO",
+          "value": "BAR"
+        },
+        {
+          "name" : "PORT",
+          "value": "${container_port}"
+        }
+      ]
     },
-    "user": "1337"
-  }
+    {
+        "name": "envoy",
+        "image": "111345817488.dkr.ecr.${region}.amazonaws.com/aws-appmesh-envoy:v1.9.1.0-prod",
+        "user": "1337",
+        "essential": true,
+            "cpu": 256,
+            "memory": 512,
+        "ulimits": [
+          {
+            "name": "nofile",
+            "hardLimit": 15000,
+            "softLimit": 15000
+          }
+        ],
+        "portMappings": [
+          {
+            "containerPort": 9901,
+            "hostPort": 9901,
+            "protocol": "tcp"
+          },
+          {
+            "containerPort": 15000,
+            "hostPort": 15000,
+            "protocol": "tcp"
+          },
+          {
+            "containerPort": 15001,
+            "hostPort": 15001,
+            "protocol": "tcp"
+          }
+        ],
+        "environment": [
+          {
+            "name": "APPMESH_VIRTUAL_NODE_NAME",
+            "value": "mesh/${meshName}/virtualNode/${virtualNodeName}"
+          },
+          {
+            "name": "ENABLE_ENVOY_XRAY_TRACING",
+            "value": "1"
+          },
+          {
+            "name": "ENVOY_LOG_LEVEL",
+            "value": "${envoy_log_level}"
+          }
+        ],
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "${cloudwatch_log_group}-envoy",
+            "awslogs-region": "${aws_region}",
+            "awslogs-stream-prefix": "ecs"
+          }
+        }
+      },
+      {
+        "name": "xray-daemon",
+        "image": "amazon/aws-xray-daemon",
+        "user": "1337",
+        "essential": true,
+        "cpu": 32,
+        "memoryReservation": 256,
+        "portMappings": [
+          {
+            "hostPort": 2000,
+            "containerPort": 2000,
+            "protocol": "udp"
+          }
+        ],
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "${cloudwatch_log_group}-xray",
+            "awslogs-region": "${aws_region}",
+            "awslogs-stream-prefix": "ecs"
+          }
+        }
+      }
+  ]

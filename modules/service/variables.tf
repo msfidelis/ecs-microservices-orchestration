@@ -10,9 +10,11 @@ variable "cluster_service_discovery" {}
 
 variable "cluster_id" {}
 
-variable "cluster_mesh" {}
+variable "cluster_mesh" { default = "" }
 
 variable "service_name" {}
+
+variable "service_protocol" { default = "http" }
 
 variable "service_priority" {}
 
@@ -65,7 +67,9 @@ variable "cpu_verification_period" {}
 
 variable "build_image" {}
 
-variable "is_public" {}
+variable "is_public" { default = true }
+
+variable "enable_mesh" { default = false }
 
 variable "service_base_path" {}
 

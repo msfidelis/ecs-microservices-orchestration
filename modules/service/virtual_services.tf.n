@@ -1,0 +1,14 @@
+// resource "aws_appmesh_virtual_service" "blue" {
+//     // count = var.enable_mesh == true ? 1 : 0
+
+//     name      = "${var.cluster_name}.${var.cluster_service}.local"
+//     mesh_name = "${var.cluster_mesh}"
+
+//     spec {
+//         provider {
+//             virtual_node {
+//                 virtual_node_name = "${aws_appmesh_virtual_node.blue.name}"
+//             }
+//         }
+//     }
+// }

@@ -4,6 +4,7 @@ module "service_whois" {
     region          = "${var.aws_region}"
 
     is_public       = true
+    enable_mesh     = true
 
     # Service name
     service_name        = "service-whois"
