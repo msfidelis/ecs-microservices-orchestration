@@ -18,6 +18,10 @@ variable "service_protocol" { default = "http" }
 
 variable "service_priority" {}
 
+variable "is_public" { default = true }
+
+variable "enable_mesh" { default = false }
+
 variable "platform_version" {
     default = "LATEST"
 }
@@ -44,7 +48,20 @@ variable "envoy_cpu" {
 }
 
 variable "envoy_mem" {
-  default = 512
+  default = 256
+}
+
+variable "envoy_log_level" {
+  type    = string
+  default = "debug"
+}
+
+variable "xray_cpu" {
+  default = 256
+}
+
+variable "xray_mem" {
+  default = 256
 }
 
 variable "container_port" {}
@@ -66,10 +83,6 @@ variable "cpu_to_scale_down" {}
 variable "cpu_verification_period" {}
 
 variable "build_image" {}
-
-variable "is_public" { default = true }
-
-variable "enable_mesh" { default = false }
 
 variable "service_base_path" {}
 

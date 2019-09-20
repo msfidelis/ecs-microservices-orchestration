@@ -1,0 +1,13 @@
+resource "aws_appmesh_virtual_service" "service" {
+
+    name      = "${var.service_name}.${var.cluster_name}.mesh"
+    mesh_name = "${var.cluster_mesh}"
+
+    spec {
+        provider {
+            virtual_node {
+                virtual_node_name = "${aws_appmesh_virtual_node.blue.name}"
+            }
+         }
+     }
+ }

@@ -1,7 +1,5 @@
 resource "aws_appmesh_virtual_node" "blue" {
 
-  count = var.enable_mesh == true ? 1 : 0
-
   name      = "${var.cluster_name}-${var.service_name}-blue"
   mesh_name = "${var.cluster_mesh}"
 
@@ -44,8 +42,6 @@ resource "aws_appmesh_virtual_node" "blue" {
 
 
 resource "aws_appmesh_virtual_node" "green" {
-
-  count = var.enable_mesh == true ? 1 : 0
 
   name      = "${var.cluster_name}-${var.service_name}-green"
   mesh_name = "${var.cluster_mesh}"

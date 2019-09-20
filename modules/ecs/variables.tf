@@ -1,5 +1,9 @@
 variable "cluster_name" {}
 
+variable "cluster_domain" {
+  default = ""
+}
+
 variable "vpc_id" {}
 
 variable "listener" {

@@ -36,8 +36,8 @@
         "image": "111345817488.dkr.ecr.${region}.amazonaws.com/aws-appmesh-envoy:v1.9.1.0-prod",
         "user": "1337",
         "essential": true,
-            "cpu": 256,
-            "memory": 512,
+            "cpu": ${envoy_cpu},
+            "memory": ${envoy_mem},
         "ulimits": [
           {
             "name": "nofile",
@@ -65,7 +65,7 @@
         "environment": [
           {
             "name": "APPMESH_VIRTUAL_NODE_NAME",
-            "value": "mesh/${meshName}/virtualNode/${virtualNodeName}"
+            "value": "mesh/${mesh_name}/virtualNode/${virtual_node}"
           },
           {
             "name": "ENABLE_ENVOY_XRAY_TRACING",
@@ -79,9 +79,9 @@
         "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-            "awslogs-group": "${cloudwatch_log_group}-envoy",
-            "awslogs-region": "${aws_region}",
-            "awslogs-stream-prefix": "ecs"
+            "awslogs-group": "${log_group}-envoy",
+            "awslogs-region": "${region}",
+            "awslogs-stream-prefix": "${container_name}-envoy"
           }
         }
       },
@@ -90,8 +90,8 @@
         "image": "amazon/aws-xray-daemon",
         "user": "1337",
         "essential": true,
-        "cpu": 32,
-        "memoryReservation": 256,
+        "cpu": ${xray_cpu},
+        "memoryReservation": ${xray_mem},
         "portMappings": [
           {
             "hostPort": 2000,
@@ -102,9 +102,9 @@
         "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-            "awslogs-group": "${cloudwatch_log_group}-xray",
-            "awslogs-region": "${aws_region}",
-            "awslogs-stream-prefix": "ecs"
+            "awslogs-group": "${log_group}",
+            "awslogs-region": "${region}",
+            "awslogs-stream-prefix": "${container_name}-xray"
           }
         }
       }

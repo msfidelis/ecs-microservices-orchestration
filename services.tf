@@ -4,7 +4,6 @@ module "service_whois" {
     region          = "${var.aws_region}"
 
     is_public       = true
-    enable_mesh     = true
 
     # Service name
     service_name        = "service-whois"
@@ -36,7 +35,7 @@ module "service_whois" {
     max_tasks       = 10
 
     # Tasks CPU / Memory limits
-    desired_task_cpu        = 256
+    desired_task_cpu        = 512
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
@@ -97,7 +96,7 @@ module "service_hash" {
 
     # Tasks CPU / Memory limits
     desired_task_cpu        = 256
-    desired_task_mem        = 512
+    desired_task_mem        = 256
 
     # CPU metrics for Auto Scale
     cpu_to_scale_up         = 30
@@ -157,7 +156,7 @@ module "service_faker" {
     max_tasks       = 10
 
     # Tasks CPU / Memory limits
-    desired_task_cpu        = 256
+    desired_task_cpu        = 512
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
@@ -218,7 +217,7 @@ module "service_integration" {
     max_tasks       = 10
 
     # Tasks CPU / Memory limits
-    desired_task_cpu        = 256
+    desired_task_cpu        = 512
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
