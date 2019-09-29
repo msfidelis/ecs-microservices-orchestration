@@ -33,7 +33,7 @@
     },
     {
         "name": "envoy",
-        "image": "111345817488.dkr.ecr.${region}.amazonaws.com/aws-appmesh-envoy:v1.9.1.0-prod",
+        "image": "111345817488.dkr.ecr.${region}.amazonaws.com/aws-appmesh-envoy:v1.11.1.1-prod",
         "user": "1337",
         "essential": true,
             "cpu": ${envoy_cpu},
