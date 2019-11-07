@@ -46,3 +46,9 @@ variable "container_name" {
 variable "account_id" {
   description = "AWS Account ID"
 }
+
+variable "service" {}
+
+variable "target_group" {
+  default = null
+}
