@@ -51,7 +51,7 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 ```
 
-## Create a cluster
+## Creating a cluster
 
 Edit `clusters.tf` file to customize a cluster preferences. Give infos like ALB basic configurations, AZ's and etc.
 
