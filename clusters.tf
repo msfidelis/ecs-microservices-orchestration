@@ -8,6 +8,9 @@ module "cluster_example" {
     // Defautl "${var.cluster_name}.local"
     // cluster_domain   = "srv.local"
 
+    capacity_providers          = ["FARGATE", "FARGATE_SPOT"]
+    enable_container_insights   = true
+
     listener = {
         port     = 80
         protocol = "HTTP"

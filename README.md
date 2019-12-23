@@ -154,6 +154,27 @@ module "service_whois" {
 }
 ```
 
+### Enable Container Insights
+
+Just specify a value `true` on `enable_container_insights` parameter. (Default: `false`)
+
+```hcl
+module "cluster_example" {
+    source              = "./modules/ecs"
+
+    vpc_id              = "${module.vpc.vpc_id}"
+    cluster_name        = "${var.cluster_name}"
+
+    // ...
+
+    enable_container_insights   = true
+
+    // ...
+}
+
+```
+
+
 ### Using Fargate Spot (WAITING FOR TERRAFORM PROVIDER)
 
 Just specify a value `FARGATE_SPOT` on `service_launch_type` parameter. (Default: `FARGATE`)
@@ -161,17 +182,6 @@ Just specify a value `FARGATE_SPOT` on `service_launch_type` parameter. (Default
 > To change this value is necessary recreate a service. This is causes downtime on production.
 
 ```hcl
-module "service_whois" {
-    source          = "./modules/service"
-    vpc_id          = "${module.vpc.vpc_id}"
-    region          = "${var.aws_region}"
-
-    // ...
-
-    service_launch_type = "FARGATE_SPOT"
-
-    // ...
-}
 ```
 
 ## How to Deploy
@@ -221,6 +231,8 @@ terraform apply
 ### Roadmap 
 
 * Appmesh
+
+* Multi Listeners
 
 * Fargate Spot
 
