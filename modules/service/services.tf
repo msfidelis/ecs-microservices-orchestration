@@ -13,8 +13,8 @@ resource "aws_ecs_service" "service" {
   }
 
   service_registries {
-    registry_arn = aws_service_discovery_service.service.arn
-    container_name = var.service_name
+    registry_arn    = aws_service_discovery_service.service.arn
+    container_name  = var.service_name
   }
 
   load_balancer {

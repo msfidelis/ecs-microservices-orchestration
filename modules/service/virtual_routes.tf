@@ -1,6 +1,6 @@
 resource "aws_appmesh_virtual_router" "router" {
-    
-    name      = "${var.cluster_name}-${var.service_name}"
+
+    name      = format("%s-%s", var.cluster_name, var.service_name)
     mesh_name = var.cluster_mesh
 
     spec {

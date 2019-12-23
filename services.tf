@@ -1,13 +1,13 @@
 module "service_whois" {
     source          = "./modules/service"
-    vpc_id          = "${module.vpc.vpc_id}"
-    region          = "${var.aws_region}"
+    vpc_id          = module.vpc.vpc_id
+    region          = var.aws_region
 
     is_public       = true
 
     # Service name
     service_name        = "service-whois"
-    service_base_path   = "/whois*"
+    service_base_path   = [ "/whois*" ]
     service_priority    = 400
     container_port      = 8080
 
@@ -24,12 +24,12 @@ module "service_whois" {
     }
 
     # Cluster to deploy your service - see in clusters.tf
-    cluster_name        = "${var.cluster_name}"
-    cluster_id          = "${module.cluster_example.cluster_id}"
-    cluster_listener    = "${module.cluster_example.listener}"
-    cluster_mesh        = "${module.cluster_example.cluster_mesh}"
+    cluster_name        = var.cluster_name
+    cluster_id          = module.cluster_example.cluster_id
+    cluster_listener    = module.cluster_example.listener
+    cluster_mesh        = module.cluster_example.cluster_mesh
 
-    cluster_service_discovery = "${module.cluster_example.cluster_service_discovery}"
+    cluster_service_discovery = module.cluster_example.cluster_service_discovery
 
     # Auto Scale Limits
     desired_tasks   = 2
@@ -55,21 +55,21 @@ module "service_whois" {
 
     # AZ's
     availability_zones  = [
-        "${module.vpc.public_subnet_1a}",
-        "${module.vpc.public_subnet_1b}"
+        module.vpc.public_subnet_1a,
+        module.vpc.public_subnet_1b
     ]
 }
 
 module "service_hash" {
     source          = "./modules/service"
-    vpc_id          = "${module.vpc.vpc_id}"
-    region          = "${var.aws_region}"
+    vpc_id          = module.vpc.vpc_id
+    region          = var.aws_region
 
     is_public       = true
 
     # Service name
     service_name        = "service-hash"
-    service_base_path   = "/hash*"
+    service_base_path   = [ "/hash*" ]
     service_priority    = 500
     container_port      = 9000
 
@@ -86,12 +86,12 @@ module "service_hash" {
     }
 
     # Cluster to deploy your service - see in clusters.tf
-    cluster_name        = "${var.cluster_name}"
-    cluster_id          = "${module.cluster_example.cluster_id}"
-    cluster_listener    = "${module.cluster_example.listener}"
-    cluster_mesh        = "${module.cluster_example.cluster_mesh}"
+    cluster_name        = var.cluster_name
+    cluster_id          = module.cluster_example.cluster_id
+    cluster_listener    = module.cluster_example.listener
+    cluster_mesh        = module.cluster_example.cluster_mesh
 
-    cluster_service_discovery = "${module.cluster_example.cluster_service_discovery}"
+    cluster_service_discovery = module.cluster_example.cluster_service_discovery
 
     # Auto Scale Limits
     desired_tasks   = 2
@@ -117,22 +117,22 @@ module "service_hash" {
 
     # AZ's
     availability_zones  = [
-        "${module.vpc.public_subnet_1a}",
-        "${module.vpc.public_subnet_1b}"
+        module.vpc.public_subnet_1a,
+        module.vpc.public_subnet_1b
     ]
 }
 
 
 module "service_faker" {
     source          = "./modules/service"
-    vpc_id          = "${module.vpc.vpc_id}"
-    region          = "${var.aws_region}"
+    vpc_id          = module.vpc.vpc_id
+    region          = var.aws_region
 
     is_public       = true
 
     # Service name
     service_name        = "service-faker"
-    service_base_path   = "/faker*"
+    service_base_path   = [ "/faker*" ]
     service_priority    = 600
     container_port      = 5000
 
@@ -149,12 +149,12 @@ module "service_faker" {
     }
 
     # Cluster to deploy your service - see in clusters.tf
-    cluster_name        = "${var.cluster_name}"
-    cluster_id          = "${module.cluster_example.cluster_id}"
-    cluster_listener    = "${module.cluster_example.listener}"
-    cluster_mesh        = "${module.cluster_example.cluster_mesh}"
+    cluster_name        = var.cluster_name
+    cluster_id          = module.cluster_example.cluster_id
+    cluster_listener    = module.cluster_example.listener
+    cluster_mesh        = module.cluster_example.cluster_mesh
 
-    cluster_service_discovery = "${module.cluster_example.cluster_service_discovery}"
+    cluster_service_discovery = module.cluster_example.cluster_service_discovery
 
     # Auto Scale Limits
     desired_tasks   = 2
@@ -180,22 +180,22 @@ module "service_faker" {
 
     # AZ's
     availability_zones  = [
-        "${module.vpc.public_subnet_1a}",
-        "${module.vpc.public_subnet_1b}"
+        module.vpc.public_subnet_1a,
+        module.vpc.public_subnet_1b
     ]
 }
 
 
 module "service_integration" {
     source          = "./modules/service"
-    vpc_id          = "${module.vpc.vpc_id}"
-    region          = "${var.aws_region}"
+    vpc_id          = module.vpc.vpc_id
+    region          = var.aws_region
 
     is_public       = true
 
     # Service name
     service_name        = "service-integration"
-    service_base_path   = "/integration*"
+    service_base_path   = [ "/integration*" ]
     service_priority    = 700
     container_port      = 9000
 
@@ -212,12 +212,12 @@ module "service_integration" {
     }
 
     # Cluster to deploy your service - see in clusters.tf
-    cluster_name        = "${var.cluster_name}"
-    cluster_id          = "${module.cluster_example.cluster_id}"
-    cluster_listener    = "${module.cluster_example.listener}"
-    cluster_mesh        = "${module.cluster_example.cluster_mesh}"
+    cluster_name        = var.cluster_name
+    cluster_id          = module.cluster_example.cluster_id
+    cluster_listener    = module.cluster_example.listener
+    cluster_mesh        = module.cluster_example.cluster_mesh
 
-    cluster_service_discovery = "${module.cluster_example.cluster_service_discovery}"
+    cluster_service_discovery = module.cluster_example.cluster_service_discovery
 
     # Auto Scale Limits
     desired_tasks   = 2
@@ -243,7 +243,7 @@ module "service_integration" {
 
     # AZ's
     availability_zones  = [
-        "${module.vpc.public_subnet_1a}",
-        "${module.vpc.public_subnet_1b}"
+        module.vpc.public_subnet_1a,
+        module.vpc.public_subnet_1b
     ]
 }

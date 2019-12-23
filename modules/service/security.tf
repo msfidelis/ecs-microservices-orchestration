@@ -1,8 +1,8 @@
 resource "aws_security_group" "service_sg" {
-  name        = "${var.cluster_name}-${var.service_name}-sg"
-  description = "${var.cluster_name}-${var.service_name}"
+  name        = format("%s-%s-sg", var.cluster_name, var.service_name)
+  description = format("%s-%s", var.cluster_name, var.service_name)
 
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = var.container_port
@@ -19,6 +19,6 @@ resource "aws_security_group" "service_sg" {
   }
 
   tags = {
-    Name = "${var.cluster_name}-${var.service_name}-sg"
+    Name = format("%s-%s-sg", var.cluster_name, var.service_name)
   }
 }

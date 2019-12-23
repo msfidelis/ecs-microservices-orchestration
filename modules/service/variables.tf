@@ -88,7 +88,9 @@ variable "cpu_verification_period" {}
 
 variable "build_image" {}
 
-variable "service_base_path" {}
+variable "service_base_path" {
+  type = list
+}
 
 variable "git_repository_owner" {}
 

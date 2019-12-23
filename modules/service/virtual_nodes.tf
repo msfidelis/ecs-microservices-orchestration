@@ -1,12 +1,12 @@
 resource "aws_appmesh_virtual_node" "blue" {
 
-  name      = "${var.cluster_name}-${var.service_name}-blue"
-  mesh_name = "${var.cluster_mesh}"
+  name      = format("%s-%s-blue", var.cluster_name, var.service_name)
+  mesh_name = var.cluster_mesh
 
   spec {
     backend {
         virtual_service {
-            virtual_service_name = "${var.cluster_name}-${var.service_name}.local"
+            virtual_service_name = format("%s-%s.local", var.cluster_name, var.service_name)
         }
     }
 
@@ -34,7 +34,7 @@ resource "aws_appmesh_virtual_node" "blue" {
           stack = "blue"
         }
         service_name   = "blue"
-        namespace_name = "${var.cluster_name}-${var.service_name}"
+        namespace_name = format("%s-%s", var.cluster_name, var.service_name)
       }
     }
   }
@@ -43,13 +43,13 @@ resource "aws_appmesh_virtual_node" "blue" {
 
 resource "aws_appmesh_virtual_node" "green" {
 
-  name      = "${var.cluster_name}-${var.service_name}-green"
-  mesh_name = "${var.cluster_mesh}"
+  name      = format("%s-%s-green", var.cluster_name, var.service_name)
+  mesh_name = var.cluster_mesh
 
   spec {
     backend {
         virtual_service {
-            virtual_service_name = "${var.cluster_name}-${var.service_name}.local"
+            virtual_service_name = format("%s-%s.local", var.cluster_name, var.service_name)
         }
     }
 
@@ -77,7 +77,7 @@ resource "aws_appmesh_virtual_node" "green" {
           stack = "green"
         }
         service_name   = "green"
-        namespace_name = "${var.cluster_name}-${var.service_name}"
+        namespace_name = format("%s-%s", var.cluster_name, var.service_name)
       }
     }
   }

@@ -4,11 +4,11 @@ resource "aws_lb_listener_rule" "service" {
 
   action {
     type             = "forward"
-    target_group_arn = "${aws_alb_target_group.tg.arn}"
+    target_group_arn = aws_alb_target_group.tg.arn
   }
 
   condition {
     field  = "path-pattern"
-    values = ["${var.service_base_path}"]
+    values = var.service_base_path
   }
 }
