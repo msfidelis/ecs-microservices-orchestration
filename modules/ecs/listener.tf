@@ -1,6 +1,6 @@
 resource "aws_alb_listener" "default" {
 
-  load_balancer_arn = "${aws_alb.cluster_alb.arn}"
+  load_balancer_arn = aws_alb.cluster_alb.arn
 
   port              = "${lookup(var.listener, "port", "")}"
   protocol          = "${lookup(var.listener, "protocol", "HTTP")}"

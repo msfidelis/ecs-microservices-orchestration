@@ -12,23 +12,23 @@ resource "aws_codebuild_project" "app_build" {
     compute_type = "BUILD_GENERAL1_SMALL"
 
     // https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
-    image           = "${var.build_image}"
+    image           = var.build_image
     type            = "LINUX_CONTAINER"
     privileged_mode = true
 
     environment_variable {
       name  = "repository_url"
-      value = "${var.repository_url}"
+      value = var.repository_url
     }
 
     environment_variable {
       name  = "region"
-      value = "${var.region}"
+      value = var.region
     }
 
     environment_variable {
       name  = "container_name"
-      value = "${var.app_service_name}"
+      value = var.app_service_name
     }
 
   }
@@ -37,5 +37,5 @@ resource "aws_codebuild_project" "app_build" {
     type      = "CODEPIPELINE"
   }
 
-  depends_on = ["aws_s3_bucket.source"]
+  depends_on = [aws_s3_bucket.source]
 }

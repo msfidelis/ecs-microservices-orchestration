@@ -1,11 +1,11 @@
 resource "aws_security_group" "alb_sg" {
-  name        = "${var.cluster_name}-alb-sg"
+  name        = format("%s-alb-sg", var.cluster_name)
   description = "ALB Security Group"
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port   = "${lookup(var.listener, "port")}"
-    to_port     = "${lookup(var.listener, "port")}"
+    from_port   = lookup(var.listener, "port")
+    to_port     = lookup(var.listener, "port")
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -18,6 +18,6 @@ resource "aws_security_group" "alb_sg" {
   }
 
   tags = {
-    Name = "${var.cluster_name}-alb-sg"
+    Name = format("%s-alb-sg", var.cluster_name)
   }
 }

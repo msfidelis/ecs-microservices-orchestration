@@ -35,7 +35,7 @@ variable "cpu_evaluation_periods" {
 }
 
 variable "service_healthcheck" {
-  type        = "map"
+  type        = map
   default = {
     healthy_threshold   = 3
     unhealthy_threshold = 10

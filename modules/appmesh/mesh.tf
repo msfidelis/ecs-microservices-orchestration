@@ -1,5 +1,5 @@
 resource "aws_appmesh_mesh" "mesh" {
-  name = "${var.cluster_name}-mesh"
+  name = format("%s-mesh", var.cluster_name)
 
   spec {
     egress_filter {

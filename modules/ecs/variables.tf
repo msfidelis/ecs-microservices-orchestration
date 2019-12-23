@@ -17,7 +17,7 @@ variable "enable_container_insights" {
 variable "vpc_id" {}
 
 variable "listener" {
-  type        = "map"
+  type        = map
   default = {
     port            = "80"
     certificate_arn = ""

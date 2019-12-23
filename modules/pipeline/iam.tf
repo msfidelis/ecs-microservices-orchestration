@@ -1,37 +1,37 @@
 resource "aws_iam_role" "codepipeline_role" {
-  name               = "codepipeline-${var.cluster_name}-${var.app_service_name}-role"
-  assume_role_policy = "${file("${path.module}/templates/policies/codepipeline_role.json")}"
+  name               = format("codepipeline-%s-%s-role", var.cluster_name, var.app_service_name)
+  assume_role_policy = file(format("%s/templates/policies/codepipeline_role.json", path.module))
 }
 
 data "template_file" "codepipeline_policy" {
-  template = "${file("${path.module}/templates/policies/codepipeline.json")}"
+  template = file(format("%s/templates/policies/codepipeline.json", path.module))
 
   vars = {
-    aws_s3_bucket_arn = "${aws_s3_bucket.source.arn}"
+    aws_s3_bucket_arn = aws_s3_bucket.source.arn
   }
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name   = "codepipeline-${var.cluster_name}-${var.app_service_name}-policy"
-  role   = "${aws_iam_role.codepipeline_role.id}"
-  policy = "${data.template_file.codepipeline_policy.rendered}"
+  name   = format("codepipeline-%s-%s-policy", var.cluster_name, var.app_service_name)
+  role   = aws_iam_role.codepipeline_role.id
+  policy = data.template_file.codepipeline_policy.rendered
 }
 
 resource "aws_iam_role" "codebuild_role" {
-  name               = "codebuild-${var.cluster_name}-${var.app_service_name}-role"
-  assume_role_policy = "${file("${path.module}/templates/policies/codebuild_role.json")}"
+  name               = format("codebuild-%s-%s-role", var.cluster_name, var.app_service_name)
+  assume_role_policy = file(format("%s/templates/policies/codebuild_role.json", path.module))
 }
 
 data "template_file" "codebuild_policy" {
-  template = "${file("${path.module}/templates/policies/codebuild_policy.json")}"
+  template = file(format("%s/templates/policies/codebuild_policy.json", path.module))
 
   vars = {
-    aws_s3_bucket_arn = "${aws_s3_bucket.source.arn}"
+    aws_s3_bucket_arn = aws_s3_bucket.source.arn
   }
 }
 
 resource "aws_iam_role_policy" "codebuild_policy" {
-  name   = "codebuild-${var.cluster_name}-${var.app_service_name}-policy"
-  role   = "${aws_iam_role.codebuild_role.id}"
-  policy = "${data.template_file.codebuild_policy.rendered}"
+  name    = format("codebuild-%s-%s-policy", var.cluster_name, var.app_service_name)
+  role    = aws_iam_role.codebuild_role.id
+  policy  = data.template_file.codebuild_policy.rendered
 }
