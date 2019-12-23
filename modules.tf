@@ -1,4 +1,4 @@
 module "vpc" {
   source         = "./modules/vpc"
-  cluster_name   = "${var.cluster_name}"
+  cluster_name   = var.cluster_name
 }

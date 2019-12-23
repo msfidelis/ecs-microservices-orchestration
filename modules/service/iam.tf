@@ -1,6 +1,6 @@
 # Cluster Execution Role
 resource "aws_iam_role" "ecs_execution_role" {
-  name               = "${var.cluster_name}-${var.service_name}-ecs_task_role"
+  name               = format("%s-%s-ecs_task_role", var.cluster_name, var.service_name)
   assume_role_policy = file(format("%s/policies/ecs-task-execution-role.json", path.module))
 }
 

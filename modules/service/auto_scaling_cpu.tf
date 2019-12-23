@@ -2,8 +2,8 @@ resource "aws_appautoscaling_target" "app_scale_target" {
     service_namespace  = "ecs"
     resource_id        =format("service/%s/%s", var.cluster_name, var.service_name)
     scalable_dimension = "ecs:service:DesiredCount"
-    max_capacity       = "${var.max_tasks}"
-    min_capacity       = "${var.min_tasks}"
+    max_capacity       = var.max_tasks
+    min_capacity       = var.min_tasks
 
     depends_on = [aws_ecs_service.service]
 }

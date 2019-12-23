@@ -1,6 +1,6 @@
 resource "aws_lb_listener_rule" "service" {
-  listener_arn = "${var.cluster_listener}"
-  priority     = "${var.service_priority}"
+  listener_arn = var.cluster_listener
+  priority     = var.service_priority
 
   action {
     type             = "forward"

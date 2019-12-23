@@ -1,5 +1,5 @@
 resource "aws_service_discovery_private_dns_namespace" "private-service-discovery" {
   name        = var.cluster_domain
-  description = "${var.cluster_name} private service discovery"
+  description = format("%s private service discovery", var.cluster_name)
   vpc         = var.vpc_id
 }

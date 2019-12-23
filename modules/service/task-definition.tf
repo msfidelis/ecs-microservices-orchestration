@@ -21,7 +21,8 @@ data "template_file" "task" {
 }
 
 resource "aws_ecs_task_definition" "task" {
-  family                   = "${var.cluster_name}-${var.service_name}"
+  family                   = format("%s-%s", var.cluster_name, var.service_name)
+
   container_definitions    = data.template_file.task.rendered
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
@@ -30,6 +31,6 @@ resource "aws_ecs_task_definition" "task" {
   // cpu                      = var.desired_task_cpu + var.envoy_cpu + var.xray_cpu
   // memory                   = var.desired_task_mem + var.envoy_mem + var.xray_mem
 
-  execution_role_arn = "${aws_iam_role.ecs_execution_role.arn}"
-  task_role_arn      = "${aws_iam_role.ecs_execution_role.arn}"
+  execution_role_arn = aws_iam_role.ecs_execution_role.arn
+  task_role_arn      = aws_iam_role.ecs_execution_role.arn
 }

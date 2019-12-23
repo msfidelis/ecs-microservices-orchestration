@@ -1,7 +1,7 @@
 resource "aws_security_group" "alb_sg" {
   name        = format("%s-alb-sg", var.cluster_name)
   description = "ALB Security Group"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = lookup(var.listener, "port")
