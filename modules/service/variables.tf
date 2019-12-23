@@ -18,6 +18,10 @@ variable "service_protocol" { default = "http" }
 
 variable "service_priority" {}
 
+variable "service_launch_type" {
+  default = "FARGATE"
+}
+
 variable "is_public" { default = true }
 
 variable "enable_mesh" { default = false }

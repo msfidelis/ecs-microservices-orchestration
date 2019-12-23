@@ -11,6 +11,8 @@ module "service_whois" {
     service_priority    = 400
     container_port      = 8080
 
+    service_launch_type = "FARGATE"
+
     service_healthcheck = {
         healthy_threshold   = 3
         unhealthy_threshold = 10
@@ -35,7 +37,7 @@ module "service_whois" {
     max_tasks       = 10
 
     # Tasks CPU / Memory limits
-    desired_task_cpu        = 512
+    desired_task_cpu        = 256
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
@@ -71,6 +73,8 @@ module "service_hash" {
     service_priority    = 500
     container_port      = 9000
 
+    service_launch_type = "FARGATE"
+
     service_healthcheck = {
         healthy_threshold   = 3
         unhealthy_threshold = 10
@@ -96,7 +100,7 @@ module "service_hash" {
 
     # Tasks CPU / Memory limits
     desired_task_cpu        = 256
-    desired_task_mem        = 256
+    desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
     cpu_to_scale_up         = 30
@@ -132,6 +136,8 @@ module "service_faker" {
     service_priority    = 600
     container_port      = 5000
 
+    service_launch_type = "FARGATE"
+
     service_healthcheck = {
         healthy_threshold   = 3
         unhealthy_threshold = 10
@@ -156,7 +162,7 @@ module "service_faker" {
     max_tasks       = 10
 
     # Tasks CPU / Memory limits
-    desired_task_cpu        = 512
+    desired_task_cpu        = 256
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale
@@ -193,6 +199,8 @@ module "service_integration" {
     service_priority    = 700
     container_port      = 9000
 
+    service_launch_type = "FARGATE"
+
     service_healthcheck = {
         healthy_threshold   = 3
         unhealthy_threshold = 10
@@ -217,7 +225,7 @@ module "service_integration" {
     max_tasks       = 10
 
     # Tasks CPU / Memory limits
-    desired_task_cpu        = 512
+    desired_task_cpu        = 256
     desired_task_mem        = 512
 
     # CPU metrics for Auto Scale

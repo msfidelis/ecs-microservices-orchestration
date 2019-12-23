@@ -1,5 +1,6 @@
 data "template_file" "task" {
-  template = "${file("${path.module}/task-definitions/envoy.json")}"
+  // template = "${file("${path.module}/task-definitions/envoy.json")}"
+  template = "${file("${path.module}/task-definitions/task.json")}"
 
   vars = {
     image               = "${aws_ecr_repository.registry.repository_url}"
@@ -24,8 +25,8 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions    = "${data.template_file.task.rendered}"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                       = 1024
-  memory                    = 2048
+  cpu                       = var.desired_task_cpu
+  memory                    = var.desired_task_mem
   // cpu                      = var.desired_task_cpu + var.envoy_cpu + var.xray_cpu
   // memory                   = var.desired_task_mem + var.envoy_mem + var.xray_mem
 

@@ -154,6 +154,25 @@ module "service_whois" {
 }
 ```
 
+### Using Fargate Spot (WAITING FOR TERRAFORM PROVIDER)
+
+Just specify a value `FARGATE_SPOT` on `service_launch_type` parameter. (Default: `FARGATE`)
+
+> To change this value is necessary recreate a service. This is causes downtime on production.
+
+```hcl
+module "service_whois" {
+    source          = "./modules/service"
+    vpc_id          = "${module.vpc.vpc_id}"
+    region          = "${var.aws_region}"
+
+    // ...
+
+    service_launch_type = "FARGATE_SPOT"
+
+    // ...
+}
+```
 
 ## How to Deploy
 
@@ -168,9 +187,9 @@ module "service_whois" {
 export GITHUB_TOKEN=YOUR_TOKEN
 ``` 
 
-### 2) Terraform 
+### 2) Terraform
 
-* Initialize Terraform 
+* Initialize Terraform
 
 ```bash
 terraform init
@@ -203,11 +222,15 @@ terraform apply
 
 * Appmesh
 
+* Fargate Spot
+
 * Private Services
 
 * Workers
 
 * Bitbucket integrations
+
+* Gitlab integrations
 
 
 
