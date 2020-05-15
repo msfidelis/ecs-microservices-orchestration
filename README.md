@@ -45,7 +45,7 @@ variable "aws_region" {
 }
 
 provider "aws" {
-  region = "${var.aws_region}"
+  region = var.aws_region
 }
 
 data "aws_caller_identity" "current" {}
@@ -59,8 +59,8 @@ Edit `clusters.tf` file to customize a cluster preferences. Give infos like ALB 
 module "cluster_example" {
 
     source              = "./modules/ecs"
-    vpc_id              = "${module.vpc.vpc_id}"
-    cluster_name        = "${var.cluster_name}"
+    vpc_id              = module.vpc.vpc_id
+    cluster_name        = var.cluster_name
 
     listener = {
         port     = 8080
@@ -70,8 +70,8 @@ module "cluster_example" {
     }
 
     availability_zones  = [
-        "${module.vpc.public_subnet_1a}",
-        "${module.vpc.public_subnet_1b}"
+        module.vpc.public_subnet_1a,
+        module.vpc.public_subnet_1b
     ]
 
 }
@@ -95,8 +95,8 @@ Edit `services.tf` and customize an service configurations, like Github sources,
 ```hcl
 module "service_whois" {
     source          = "./modules/service"
-    vpc_id          = "${module.vpc.vpc_id}"
-    region          = "${var.aws_region}"
+    vpc_id          = module.vpc.vpc_id
+    region          = var.aws_region
 
     is_public       = true
 
@@ -117,12 +117,12 @@ module "service_whois" {
     }
 
     # Cluster to deploy your service - see in clusters.tf
-    cluster_name        = "${var.cluster_name}"
-    cluster_id          = "${module.cluster_example.cluster_id}"
-    cluster_listener    = "${module.cluster_example.listener}"
-    cluster_mesh        = "${module.cluster_example.cluster_mesh}"
+    cluster_name        = var.cluster_name
+    cluster_id          = module.cluster_example.cluster_id
+    cluster_listener    = module.cluster_example.listener
+    cluster_mesh        = module.cluster_example.cluster_mesh
 
-    cluster_service_discovery = "${module.cluster_example.cluster_service_discovery}"
+    cluster_service_discovery = module.cluster_example.cluster_service_discovery
 
     # Auto Scale Limits
     desired_tasks   = 2
@@ -148,8 +148,8 @@ module "service_whois" {
 
     # AZ's
     availability_zones  = [
-        "${module.vpc.public_subnet_1a}",
-        "${module.vpc.public_subnet_1b}"
+        module.vpc.public_subnet_1a,
+        module.vpc.public_subnet_1b
     ]
 }
 ```
@@ -162,8 +162,8 @@ Just specify a value `true` on `enable_container_insights` parameter. (Default: 
 module "cluster_example" {
     source              = "./modules/ecs"
 
-    vpc_id              = "${module.vpc.vpc_id}"
-    cluster_name        = "${var.cluster_name}"
+    vpc_id              = module.vpc.vpc_id
+    cluster_name        = var.cluster_name
 
     // ...
 
