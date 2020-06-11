@@ -76,3 +76,45 @@ jobs:
         docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.18 version
         docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.18 init
         docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.18 validate
+
+    - name: Terraform 0.12.19 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.19 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.19 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.19 validate
+
+    - name: Terraform 0.12.20 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.20 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.20 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.20 validate
+
+    - name: Terraform 0.12.21 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.21 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.21 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.21 validate
+
+    - name: Terraform 0.12.23 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.23 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.23 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.23 validate
+
+    - name: Terraform 0.12.24 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.24 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.24 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.24 validate
+
+    - name: Terraform 0.12.25 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.25 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.25 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.25 validate
+
+    - name: Terraform 0.12.26 compatibility
+      run: |
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.26 version
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.26 init
+        docker run -t --rm -v $(pwd):/app/ -w /app/ hashicorp/terraform:0.12.26 validate
