@@ -244,6 +244,7 @@ terraform apply
 
 * Gitlab integrations
 
+* EFS Support
 
 
 
